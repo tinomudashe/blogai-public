@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { IBM_Plex_Sans as Fontsans } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils"
+import Header from "@/components/home/Header";
 
 const fontsans = Fontsans({
   subsets:["latin"],
@@ -26,8 +27,8 @@ export default function RootLayout({
           "min-h-screen bg-background font-sans antialiased",
           fontsans.variable
         )}>
-      
-        {children}
+         <Header></Header> 
+        <main>{children}</main>
       </body>
     </html>
   );
