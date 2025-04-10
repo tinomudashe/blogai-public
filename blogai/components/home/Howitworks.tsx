@@ -38,8 +38,31 @@ const HowItWorks = () => {
         
         </div>
         <MoveRight size={64} strokeWidth={0.5} className="text-purple-500"/>
+        <div className='flex flex-col'>
+        <Image 
+        src='/video(2).png'
+        alt='Video Icon'
+        width={200}
+        height={200}
+        />
+        <p className='text-center font-bold'>AI magic</p>
+        
+        </div>
+        <MoveRight size={64} strokeWidth={0.5} className="text-purple-500"/>
+        <div className='flex flex-col'>
+        <Image 
+        src='/video(3).png'
+        alt='Video Icon'
+        width={200}
+        height={200}
+        />
+        <p className='text-center font-bold'>Blog</p>
+        
+        </div>
+        
         
     </div>
+    
    
     
     </section>
