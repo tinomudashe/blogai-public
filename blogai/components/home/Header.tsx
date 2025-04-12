@@ -2,6 +2,7 @@
 import Link from 'next/link';
 import React from 'react'
 import Image from 'next/image'
+import { SignedIn, SignedOut, SignInButton, SignUpButton, UserButton } from "@clerk/nextjs";
 
 const NavLink = ({href,children}:{href:string, children:React.ReactNode}) =>{
     return <Link
@@ -20,7 +21,7 @@ export default function Header(){
     <NavLink href="/">
 
         <span className='flex items-center gap-2 shrink-0'>
-            <Image
+            <Image className='relative z-50'
                 src='/blog5.png'
                 alt='BlogAi'
                 width={132}
@@ -32,16 +33,32 @@ export default function Header(){
     <div className='flex lg:justify-center gap-2 lg:gap-12 lg:items-center
     '>
         <NavLink href="/#pricing">Pricing</NavLink>
+        <SignedIn>
         <NavLink href="/#posts">Your Posts</NavLink>
+        </SignedIn>
+        
 
     </div>
     <div className="flex lg:justify-end lg:flex-1">
+        
 
-        <div className="flex gap-2 items-center">
-        <NavLink href="/dashboard">Upload a Video</NavLink>
-        {/** Profile */}
-        </div>
-        <NavLink href='/sign-in'>Sign In</NavLink>
+        
+        <SignedIn>
+            <div className="flex gap-2 items-center">
+                <NavLink href="/dashboard">Upload a Video</NavLink>
+                {/** Profile */}
+            
+                <UserButton />
+            </div>
+        </SignedIn>
+        
+
+        <SignedOut>
+            <SignInButton>
+                <NavLink href="/sign-in">Sign In</NavLink>
+            </SignInButton>
+        </SignedOut>
+           
     </div>
         
     </nav>);

@@ -3,6 +3,7 @@ import { IBM_Plex_Sans as Fontsans } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils"
 import Header from "@/components/home/Header";
+import { ClerkProvider } from "@clerk/nextjs";
 
 const fontsans = Fontsans({
   subsets:["latin"],
@@ -21,15 +22,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
+    <ClerkProvider>
     <html lang="en">
       <body
         className={cn(
           "min-h-screen bg-background font-sans antialiased",
           fontsans.variable
         )}>
-         <Header></Header> 
+         <Header></Header>
         <main>{children}</main>
       </body>
     </html>
-  );
+     </ClerkProvider>)
 }

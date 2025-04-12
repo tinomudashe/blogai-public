@@ -13,6 +13,8 @@ const Pricing = () => {
             description: 'Get started with blogAI!',
             price:"10",
             items:["3 Blog Posts","3 Transcription" ],
+            paymentLink: "https://buy.stripe.com/cN2g1haz42Ix568144",
+            priceId:process.env.NODE_ENV === 'development'? "price_1RCspx2MwwfzXHrFXnJeen7A":""
         },
         {   
             id:'pro',
@@ -20,6 +22,8 @@ const Pricing = () => {
             description: "All Blog Posts,let's go!",
             price:"19.99",
             items:["unlimited Blog Posts","unlimited Transcriptions" ],
+            paymentLink: "https://buy.stripe.com/28o16n7mSbf3aqs8wx",
+            priceId:process.env.NODE_ENV === 'development'?"price_1RCspx2MwwfzXHrFLX9WKswJ":""
         },
         
     ]
@@ -32,7 +36,7 @@ const Pricing = () => {
             </div>
             <div className='relative flex justify-center flex-col lg:flex-row items-center lg:items-stretch gap-8'>
 
-                {plansMap.map(({name,price,description,items,id},idx)=>(<div className='relative w-full max-w-lg' key={idx}>
+                {plansMap.map(({name,price,description,items,id,paymentLink},idx)=>(<div className='relative w-full max-w-lg' key={idx}>
                     <div className={cn('relative flex flex-col h-full gap-4 lg:gap-8 z-10 p-8 rounded-box border-[1px] border-gray-500/20 rounded-2xl',id==="pro" && "border-violet-500 gap-5 border-2")}>
                         <div className='flex justify-between items-center gap-4'>
                             <div>
@@ -61,7 +65,7 @@ const Pricing = () => {
                         <div className='space-y-2'>
                             <Button variant={'link'}
                                 className={cn('border-2 rounded-full flex gap-2 bg-black text-gray-100 hover:bg-violet-500 transition-colors duration-200',id==="pro" && "border-amber-300 px-4")}>
-                                <Link href='/'
+                                <Link href={paymentLink}
                                 className='flex gap-1 items-center'>
                                     Get BlogAI
                                     <ArrowRight size={18}/>
