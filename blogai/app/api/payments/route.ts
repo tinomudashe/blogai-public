@@ -1,7 +1,10 @@
+import { handleCheckoutSessionCompleted, handleSubscriptionDeleted } from "@/lib/payment-helpers";
 import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
+
+
 
 export async function POST(req:NextRequest){
 
@@ -30,10 +33,20 @@ export async function POST(req:NextRequest){
             );
             console.log({session});
 
+            await handleCheckoutSessionCompleted({session,stripe})
+
             //connect to db create or update user
             break;
         }
         case "customer.subscription.deleted":{
+
+            const subscriptionId = event.data.object.id;
+            const subscription = await stripe.
+            subscriptionItems.retrieve(subscriptionId);
+            console.log({subscription});
+
+            await handleSubscriptionDeleted({ subscriptionId, stripe})
+
             break;
         }
         default:

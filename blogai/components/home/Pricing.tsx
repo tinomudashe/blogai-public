@@ -13,7 +13,7 @@ const Pricing = () => {
             description: 'Get started with blogAI!',
             price:"10",
             items:["3 Blog Posts","3 Transcription" ],
-            paymentLink: "https://buy.stripe.com/cN2g1haz42Ix568144",
+            paymentLink: "https://buy.stripe.com/test_4gweYUc89fOh0jCcMM",
             priceId:process.env.NODE_ENV === 'development'? "price_1RCspx2MwwfzXHrFXnJeen7A":""
         },
         {   
@@ -22,7 +22,7 @@ const Pricing = () => {
             description: "All Blog Posts,let's go!",
             price:"19.99",
             items:["unlimited Blog Posts","unlimited Transcriptions" ],
-            paymentLink: "https://buy.stripe.com/28o16n7mSbf3aqs8wx",
+            paymentLink: "https://buy.stripe.com/test_4gw5ok6NP8lP7M4eUV",
             priceId:process.env.NODE_ENV === 'development'?"price_1RCspx2MwwfzXHrFLX9WKswJ":""
         },
         
