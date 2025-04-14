@@ -10,6 +10,7 @@ export async function handleSubscriptionDeleted({subscriptionId, stripe}:{
             subscriptions.retrieve(subscriptionId);
         const sql = await getDbConnection();
         await sql`UPDATE users SET status = 'cancelled' WHERE customer_id = ${subscription.customer}`;
+        console.log(subscription.customer);
     
     }catch(err){
         console.error("Error handling subscription deletion",err);

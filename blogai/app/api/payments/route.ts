@@ -42,7 +42,7 @@ export async function POST(req:NextRequest){
 
             const subscriptionId = event.data.object.id;
             const subscription = await stripe.
-            subscriptionItems.retrieve(subscriptionId);
+            subscriptions.retrieve(subscriptionId);
             console.log({subscription});
 
             await handleSubscriptionDeleted({ subscriptionId, stripe})

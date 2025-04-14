@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import { IBM_Plex_Sans as Fontsans } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils"
-import Header from "@/components/home/Header";
 import { ClerkProvider } from "@clerk/nextjs";
+import Header from "@/components/home/Header";
 
 const fontsans = Fontsans({
   subsets:["latin"],
