@@ -64,11 +64,11 @@ export default function Header() {
                 </Button>
               </SheetTrigger>
               </SignedIn>
-              <BgGradient>
+              
               <SheetContent side="left">
                 <DialogTitle className="hidden">Navigation Menu</DialogTitle>
                 
-                <div className="grid w-[200px] p-4 gap-3">
+                <div className="grid w-[200px] p-4 gap-3 ">
                   <UserButton />
                   <br/>
                   
@@ -86,7 +86,7 @@ export default function Header() {
 
                     <NavLink href="/#posts">
                       <SheetClose asChild>
-                      <NavLink href="/#posts">Posts</NavLink>
+                      <span>Posts</span>
                       </SheetClose>
                     </NavLink>
                     
@@ -104,7 +104,7 @@ export default function Header() {
                     <SignOutButton>
                       <SheetClose asChild>
                       <Link 
-                      href="/"
+                      href="/sign-in"
                       className="text-xl font-semibold transition-colors duration-200  text-purple-500 hover:text-gray-600"
                       prefetch={false}
                       >Sign out 
@@ -113,8 +113,9 @@ export default function Header() {
                     </SignOutButton>
 
                 </div>
+                
               </SheetContent>
-              </BgGradient>
+              
             </Sheet>
             
           

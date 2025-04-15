@@ -30,5 +30,5 @@ export function updateUser(
 
 export function getPlanType(priceId:string){
     const checkPlanType = plansMap.filter((plan) => plan.priceId === priceId);
-        return checkPlanType?.[0].id || "starter";
+        return checkPlanType?.[0];
 }
