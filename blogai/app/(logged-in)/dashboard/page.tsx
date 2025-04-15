@@ -5,6 +5,7 @@ import { doesUserExist, getPlanType, hasCancelledSubscription, updateUser } from
 import { BgGradient } from "@/components/common/bg-gradient";
 import { Badge } from "@/components/ui/badge";
 import UpgradeYourPlan from "@/components/Upload/upgradeYourPlan";
+import UploadForm from "@/components/Upload/uploadForm";
 
 
 
@@ -47,7 +48,7 @@ export default async function Dashboard(){
     const db = getDBConnection();
     return (
         <BgGradient>
-            <div className="mx-auto max-w-7xl px-6 py-24 sm:py-32 lg:px-8">
+            <div className="mx-auto max-w-7xl px-6 lg:py-20 py-14 lg:px-8">
                 <div className="flex flex-col items-center justify-center gap-6 text-center">
                     <Badge className="bg-gradient-to-r from-purple-700 to-pink-800 text-white 
                         px-4 py-1 text-lg font-semibold capitalize rounded-2xl">
@@ -67,7 +68,10 @@ export default async function Dashboard(){
                     blog posts</span>  as part of the {" "} 
                     <span className="font-bold capitalized">{planTypeName}</span>{" "}Plan.
                 </p>
-                {hasUserCancelled ? <UpgradeYourPlan/>: <p>Upload</p>}
+                {/*hasUserCancelled*/false ? <UpgradeYourPlan/>:(
+                        <UploadForm/>
+                    
+                     )}
                 
                 </div>
             </div>
