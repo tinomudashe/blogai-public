@@ -12,16 +12,20 @@ export const ourFileRouter = {
             maxFileSize: "32MB",
             maxFileCount: 1,
         },
+        audio: { // Add audio configuration
+            maxFileSize: "16MB", // Adjust as needed
+            maxFileCount: 1,
+        },
     })
         .middleware(async ({ req }) => {
             const user = await currentUser();
             if (!user) throw new UploadThingError("Unauthorized");
             return { userId: user.id };
         })
-        .onUploadComplete(async ({ metadata, file }) => {
+        .onUploadComplete(async ({ metadata, file}) => {
             console.log("Upload complete for userId:", metadata.userId);
             console.log("file url", file.ufsUrl);
-            return { uploadedBy: metadata.userId, fileUrl:file.ufsUrl };
+            return { userId: metadata.userId,file};
         }),
 } satisfies FileRouter;
 export type OurFileRouter = typeof ourFileRouter;

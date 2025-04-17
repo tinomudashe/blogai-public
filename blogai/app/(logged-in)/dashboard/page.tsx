@@ -6,6 +6,7 @@ import { BgGradient } from "@/components/common/bg-gradient";
 import { Badge } from "@/components/ui/badge";
 import UpgradeYourPlan from "@/components/Upload/upgradeYourPlan";
 import UploadForm from "@/components/Upload/uploadForm";
+import { redirect } from "next/navigation";
 
 
 
@@ -13,6 +14,10 @@ export default async function Dashboard(){
     
     const clerkUser = await currentUser();
     const email = clerkUser?.emailAddresses?.[0].emailAddress ?? "";
+
+    if(!clerkUser){
+        return redirect("/sign-in")
+    }
 
     const sql = await getDBConnection();
 
