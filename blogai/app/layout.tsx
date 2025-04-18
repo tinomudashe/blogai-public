@@ -17,10 +17,10 @@ const fontsans = Fontsans({
 export const metadata: Metadata = {
   title: "BlogAi App",
   description: "Generate Blog posts from Video or audios using ai",
-  /*metadataBase:new URL(ORIGIN_URL),
+  metadataBase:new URL(ORIGIN_URL),
   alternates:{
     canonical:ORIGIN_URL,
-  }*/
+  }
 };
 
 export default function RootLayout({   
