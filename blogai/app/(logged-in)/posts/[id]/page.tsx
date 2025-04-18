@@ -10,7 +10,12 @@ export default async function PostPage({ params: { id } }: { params: { id: strin
     }
 
     const sql = await getDbConnection();
-    const posts: any = await sql`SELECT * FROM POSTS where user_id = ${user.id} and id = ${id}`;
+    const posts:any  = await sql`SELECT * FROM POSTS where user_id = ${user.id} and id = ${id}`;
 
-    return <ContentEditor posts={posts} />;
+  
+
+    return (
+        <div className="mx-auto w-full max-w-screen-xl px-2.5 lg:px-0 mb-5 mt-15"><ContentEditor posts={posts} /></div>
+            
+    )
 }

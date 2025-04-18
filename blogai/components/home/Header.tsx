@@ -83,7 +83,7 @@ export default function Header() {
                       </SheetClose>
                     </NavLink>
 
-                    <NavLink href="/#posts">
+                    <NavLink href="/posts">
                       <SheetClose asChild>
                       <span>Posts</span>
                       </SheetClose>
@@ -137,7 +137,7 @@ export default function Header() {
       <nav className="hidden md:flex gap-6 items-center">
         <NavLink href="/">Home</NavLink>
         <NavLink href="/#pricing">Pricing</NavLink>
-        <NavLink href="/#posts">Posts</NavLink>
+        <NavLink href="/posts">Posts</NavLink>
         <SignedIn>
           <div className="flex gap-2 items-center">
             <NavLink href="/dashboard">Upload Video</NavLink>

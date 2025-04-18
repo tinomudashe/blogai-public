@@ -20,4 +20,9 @@
             priceId:process.env.NODE_ENV === 'development'?"price_1RCsaS2MwwfzXHrFcUOaJlhh":""
         },
         
+            
     ]
+    export const ORIGIN_URL = 
+            process.env.NODE_ENV === 'development'
+            ?"price_1RCsaS2MwwfzXHrFcUOaJlhh"
+            :"https://blogai-demo.vercel.app"

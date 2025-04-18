@@ -21,6 +21,7 @@ export default async function Dashboard(){
 
     const sql = await getDBConnection();
 
+
     let userId = null;
     let priceId = null; 
 
@@ -50,7 +51,11 @@ export default async function Dashboard(){
     const isBasicPlan = planTypeId  === "basic";
     const isProPlan = planTypeId === "pro";
 
-    const db = getDBConnection();
+    const posts = await sql`SELECT * FROM posts WHERE user_id = ${userId}`;
+
+    const isValidBasicPlan = isBasicPlan && posts.length < 3;
+
+    
     return (
         <BgGradient>
             <div className="mx-auto max-w-7xl px-6 lg:py-20 py-14 lg:px-8">
@@ -67,13 +72,17 @@ export default async function Dashboard(){
                     Upload your audio or the video file and let our AI do the magic
                 </p>
 
-                <p className="mt-2 text-lg text-gray-600 max-w-2xl text-center">
-                    You get{''} <span className="font-bold text-amber-600 bg-amber-100 px-2 py-1 rounded-md">
-                    {isBasicPlan ? "3": "unlimited"}{" "}
-                    blog posts</span>  as part of the {" "} 
-                    <span className="font-bold capitalized">{planTypeName}</span>{" "}Plan.
-                </p>
-                {/*hasUserCancelled*/false ? <UpgradeYourPlan/>:(
+                {(isBasicPlan || isProPlan) && (
+                    <p className="mt-2 text-lg leading-8 text-gray-600 max-w-2xl text-center">
+                    You get{" "}
+                    <span className="font-bold text-amber-600 bg-amber-100 px-2 py-1 rounded-md">
+                        {isBasicPlan ? "3" : "Unlimited"} blog posts
+                    </span>{" "}
+                    as part of the{" "}
+                    <span className="font-bold capitalize">{planTypeName}</span> Plan.
+                    </p>
+                )}
+                {isValidBasicPlan||isProPlan? <UpgradeYourPlan/>:(
                         <UploadForm/>
                     
                      )}

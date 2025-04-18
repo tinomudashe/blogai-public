@@ -9,7 +9,7 @@ import {
   generateBlogPostAction,
   transcribeUploadedFile,
 } from "@/actions/upload-actions";
-import router from "next/router";
+
 
 const schema = z.object({
   file: z
@@ -82,17 +82,22 @@ export default function UploadForm() {
 
       if (data) {
         toast.dismiss();
-        const toastId = toast.loading("Please wait while we generate your blog post.");
+        
+        const toastId = toast.loading("Please wait while we generate your blog post.", {
+          duration: 10000,
+        });
+        
+        setTimeout(() => {
+          toast.dismiss(toastId);
+          toast.success("🎉 Blog created successfully!");
+        }, 10000);
 
         await generateBlogPostAction({
           transcriptions: data.transcriptions,
           userId: data.userId,
         });
 
-        toast.dismiss(toastId);
-        toast.success(
-          "🎉 Woohoo! Your AI blog is created! 🎊 Time to put on your editor hat, Click the post and edit it!",
-        );
+        
         
       }
     }

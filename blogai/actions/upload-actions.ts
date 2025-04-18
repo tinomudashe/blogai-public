@@ -175,6 +175,7 @@ export async function generateBlogPostAction({
     }
 
     const [title, ...contentParts] = blogPost?.split("\n\n") || [];
+    
 
     if (blogPost) {
       postId = await saveBlogPost(userId, title, blogPost);
@@ -188,7 +189,7 @@ export async function generateBlogPostAction({
 
   if (postId) {
     revalidatePath(`/posts/${postId}`);
-    //redirect(`/posts/${postId}`);
+    redirect(`/posts/${postId}`);
 
   } else {
     return {
