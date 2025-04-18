@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const BgGradient = ({children,className}:{
+export const BgGradient = ({children}:{
     children:React.ReactNode,
     className?:string;  
 }) => {

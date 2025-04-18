@@ -5,9 +5,8 @@ import { Button } from "@/components/ui/button";
 import { MenuIcon } from "./MenuIcon";
 import { SignedIn, SignedOut, SignInButton, UserButton,SignOutButton } from "@clerk/nextjs";
 import React from "react";
-import { auth } from '@clerk/nextjs/server'
 import { DialogTitle } from "@radix-ui/react-dialog";
-import { BgGradient } from "../common/bg-gradient";
+
 
 
 

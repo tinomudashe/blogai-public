@@ -1,7 +1,7 @@
-import { plansMap } from "@/lib/constants";
+
 import getDBConnection from "@/lib/db"
 import { currentUser } from "@clerk/nextjs/server";
-import { doesUserExist, getPlanType, hasCancelledSubscription, updateUser } from "@/lib/user-helpers";
+import { doesUserExist, getPlanType, updateUser } from "@/lib/user-helpers";
 import { BgGradient } from "@/components/common/bg-gradient";
 import { Badge } from "@/components/ui/badge";
 import UpgradeYourPlan from "@/components/Upload/upgradeYourPlan";
@@ -27,7 +27,7 @@ export default async function Dashboard(){
 
     
 
-    const hasUserCancelled = await hasCancelledSubscription(sql,email);
+  
     const user = await doesUserExist(sql,email);
 
 

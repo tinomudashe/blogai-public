@@ -2,7 +2,7 @@
 import { useActionState, useCallback, useState, useEffect, useRef } from "react";
 import { BgGradient } from "../common/bg-gradient";
 import { ForwardRefEditor } from "./forward-ref-editor";
-import { useFormState,useFormStatus } from "react-dom";
+import { useFormStatus } from "react-dom";
 import { updatePostAction } from "@/actions/editActions";
 import { Button } from "../ui/button";
 import { Download, Edit2, Loader2 } from "lucide-react";
@@ -50,7 +50,7 @@ export default function ContentEditor({ posts }: {
 
   // Initialize with empty string or first post's content if available
   const [content, setContent] = useState(posts[0]?.content ?? "");
-  const [isChanged, setIsChanged] = useState(false);
+  const [, setIsChanged] = useState(false);
 
   // Track mount status
   const isMounted = useRef(false);
@@ -68,7 +68,7 @@ export default function ContentEditor({ posts }: {
 
   const updatePostActionWithId = updatePostAction.bind(null, { postId: posts[0]?.id, content });
 
-  const [state, formAction] = useActionState<UploadState, FormData>(
+  const [, formAction] = useActionState<UploadState, FormData>(
     updatePostActionWithId as unknown as UploadAction,
     initialState
   );

@@ -1,7 +1,5 @@
 import Banner from "@/components/home/Banner";
-import { Button } from "@/components/ui/button";
-import { Dot, Link } from "lucide-react";
-import Image from "next/image";
+import { Dot} from "lucide-react";
 import HowItWorks from "@/components/home/Howitworks";
 import Pricing from "@/components/home/Pricing";
 

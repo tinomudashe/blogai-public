@@ -60,7 +60,7 @@ export default function UploadForm() {
     }
 
     if (file) {
-      const resp: any = await startUpload([file]);
+      const resp:unknown = await startUpload([file]);
       console.log({ resp });
 
       if (!resp) {
@@ -72,7 +72,7 @@ export default function UploadForm() {
       toast.dismiss();
       toast.loading( "🎙️ Transcription is in progress...");
 
-      const result = await transcribeUploadedFile(resp);
+      const result = await transcribeUploadedFile(resp as { serverData: { userId: string; file: any; }; }[]);
       const { data = null, message = null } = result || {};
 
       if (!result || (!data && !message)) {

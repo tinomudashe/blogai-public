@@ -1,5 +1,6 @@
 import Stripe from "stripe";
 import getDbConnection from "./db";
+import { NeonQueryFunction } from "@neondatabase/serverless";
 
 export async function handleSubscriptionDeleted({subscriptionId, stripe}:{
     subscriptionId: string,stripe: Stripe
@@ -42,7 +43,7 @@ export async function handleCheckoutSessionCompleted({
     
 }
 
-async function insertPayment(sql:any, session:Stripe.Checkout.Session,priceId:string,customerEmail:string ){
+async function insertPayment(sql:NeonQueryFunction<false, false>, session:Stripe.Checkout.Session,priceId:string,customerEmail:string ){
     try{
        
             await sql`INSERT INTO payments(amount,status,stripe_payment_id,price_id,user_email) VALUES (
@@ -54,7 +55,7 @@ async function insertPayment(sql:any, session:Stripe.Checkout.Session,priceId:st
     }
 }
 
-async function createOrUpdateUser( sql:any, customer:Stripe.Customer,
+async function createOrUpdateUser( sql:NeonQueryFunction<false, false>, customer:Stripe.Customer,
     customerId: string){
     try{
         const user = await sql`SELECT * FROM users WHERE email = ${customer.email}`;
@@ -69,7 +70,7 @@ async function createOrUpdateUser( sql:any, customer:Stripe.Customer,
 }
 
 async function updateUserSubscription(
-    sql:any,
+    sql:NeonQueryFunction<false, false>,
     priceId:string,
     email:string
 

@@ -22,10 +22,21 @@ export const ourFileRouter = {
             if (!user) throw new UploadThingError("Unauthorized");
             return { userId: user.id };
         })
-        .onUploadComplete(async ({ metadata, file}) => {
+        .onUploadComplete(async ({ metadata, file }) => {
             console.log("Upload complete for userId:", metadata.userId);
             console.log("file url", file.ufsUrl);
-            return { userId: metadata.userId,file};
+
+            // Return only JSON-compatible properties
+            return {
+                userId: metadata.userId,
+                file: {
+                    name: file.name,
+                    size: file.size,
+                    type: file.type,
+                    key: file.key,
+                    customId: file.customId,
+                },
+            };
         }),
 } satisfies FileRouter;
 export type OurFileRouter = typeof ourFileRouter;
