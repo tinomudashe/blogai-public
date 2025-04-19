@@ -110,7 +110,7 @@ export default function Header() {
                       </SheetClose>
                     </SignOutButton>
                     </SignedOut>
-                    <SignedOut>
+                    <SignedIn>
                     <SignOutButton>
                       <SheetClose asChild>
                       <Link 
@@ -121,7 +121,7 @@ export default function Header() {
                       </Link>
                       </SheetClose>
                     </SignOutButton>
-                    </SignedOut>
+                    </SignedIn>
                     
 
                 </div>
