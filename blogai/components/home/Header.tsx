@@ -98,7 +98,19 @@ export default function Header() {
                     </div> 
 
                     <br/>
-
+                    <SignedOut>
+                    <SignOutButton>
+                      <SheetClose asChild>
+                      <Link 
+                      href="/sign-in"
+                      className="text-xl font-semibold transition-colors duration-200  text-purple-500 hover:text-gray-600"
+                      prefetch={false}
+                      >Sign In 
+                      </Link>
+                      </SheetClose>
+                    </SignOutButton>
+                    </SignedOut>
+                    <SignedOut>
                     <SignOutButton>
                       <SheetClose asChild>
                       <Link 
@@ -109,6 +121,8 @@ export default function Header() {
                       </Link>
                       </SheetClose>
                     </SignOutButton>
+                    </SignedOut>
+                    
 
                 </div>
                 
