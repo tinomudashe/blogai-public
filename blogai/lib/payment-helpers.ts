@@ -30,6 +30,8 @@ export async function handleCheckoutSessionCompleted({
   const priceId = session.line_items?.data[0].price?.id;
 
   const sql = await getDbConnection();
+  console.log("Stripe session object", session);
+  console.log("Stripe customer", customer);
 
   if ("email" in customer && priceId) {
     await createOrUpdateUser(sql, customer, customerId);
