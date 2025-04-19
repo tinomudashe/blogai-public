@@ -2,61 +2,61 @@ import { handleCheckoutSessionCompleted, handleSubscriptionDeleted } from "@/lib
 import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!,);
 
-
-
-export async function POST(req:NextRequest){
-
+export async function POST(req: NextRequest) {
     const payload = await req.text();
-    const sig = req.headers.get
-    ('stripe-signature');
+    const sig = req.headers.get("stripe-signature");
 
-    let event;
+    let event: Stripe.Event;
 
     try {
-        event = stripe.webhooks.constructEvent
-        (payload,
-             sig!,
-             process.env.STRIPE_WEBHOOK_KEY!);
-    
+        event = stripe.webhooks.constructEvent(
+            payload,
+            sig!,
+            process.env.STRIPE_WEBHOOK_KEY!
+        );
 
-    switch (event.type){
-        
-        case "checkout.session.completed":{
+        switch (event.type) {
+            case "checkout.session.completed": {
+                const session = event.data.object as Stripe.Checkout.Session;
 
-            const session = await stripe.checkout.sessions.retrieve(
-                event.data.object.id,
-                {
-                    expand: ["line_items"],
-                }
-            );
-            console.log({session});
+                const retrievedSession = await stripe.checkout.sessions.retrieve(
+                    session.id,
+                    {
+                        expand: ["line_items"],
+                    }
+                );
+                console.log({ retrievedSession });
 
-            await handleCheckoutSessionCompleted({session,stripe})
+                await handleCheckoutSessionCompleted({
+                    session: retrievedSession,
+                    stripe,
+                });
 
-            //connect to db create or update user
-            break;
+                break;
+            }
+            case "customer.subscription.deleted": {
+                const subscription = event.data.object as Stripe.Subscription;
+
+                console.log({ subscription });
+
+                await handleSubscriptionDeleted({
+                    subscriptionId: subscription.id,
+                    stripe,
+                });
+
+                break;
+            }
+            default:
+                console.log(`Unhandled event type ${event.type}`);
         }
-        case "customer.subscription.deleted":{
-
-            const subscriptionId = event.data.object.id;
-            const subscription = await stripe.
-            subscriptions.retrieve(subscriptionId);
-            console.log({subscription});
-
-            await handleSubscriptionDeleted({ subscriptionId, stripe})
-
-            break;
-        }
-        default:
-            console.log(`Unhandled event type ${event.type}`);
+    } catch (err: unknown) {
+        console.error("Error processing Stripe webhook:", err);
+        return NextResponse.json({ status: "Failed", error: (err as Error).message });
     }
-} 
-    catch (err){
-        return NextResponse.json({status:"Failed",err})
-    }
+
     return NextResponse.json({
-        status:"success",
+        status: "success",
     });
 }

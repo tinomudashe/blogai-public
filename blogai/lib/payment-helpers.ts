@@ -7,20 +7,15 @@ export async function handleSubscriptionDeleted({
 }: {
   subscriptionId: string;
   stripe: Stripe;
-}) {/*
+}) {
   try {
     const subscription = await stripe.subscriptions.retrieve(subscriptionId);
     const sql = await getDbConnection();
     await sql`UPDATE users SET status = 'cancelled' WHERE customer_id = ${subscription.customer}`;
   } catch (error) {
-    console.error("Error handling subscription deletion", error);
+    console.error("Error handling subscription deletion for subscriptionId:", subscriptionId, error);
     throw error;
-  }*/
-
-    const subscription = await stripe.subscriptions.retrieve(subscriptionId);
-    const sql = await getDbConnection();
-    await sql`INSERT INTO users (email, full_name, customer_id) VALUES (1, "Tino", "testing")`;
-
+  }
 }
 
 export async function handleCheckoutSessionCompleted({
@@ -40,11 +35,11 @@ export async function handleCheckoutSessionCompleted({
 
   if ("email" in customer && priceId) {
     await createOrUpdateUser(sql, customer, customerId);
-    //update user subscription
     await updateUserSubscription(sql, priceId, customer.email as string);
-    //insert the payment
     await insertPayment(sql, session, priceId, customer.email as string);
-    console.log("customer created");
+    console.log("Customer and payment data processed successfully.");
+  } else {
+    console.error("Missing email or priceId in session or customer data.");
   }
 }
 
@@ -57,7 +52,7 @@ async function insertPayment(
   try {
     await sql`INSERT INTO payments (amount, status, stripe_payment_id, price_id, user_email) VALUES (${session.amount_total}, ${session.status}, ${session.id}, ${priceId}, ${customerEmail})`;
   } catch (err) {
-    console.error("Error in inserting payment", err);
+    console.error("Error inserting payment for session:", session.id, err);
   }
 }
 
@@ -72,7 +67,7 @@ async function createOrUpdateUser(
       await sql`INSERT INTO users (email, full_name, customer_id) VALUES (${customer.email}, ${customer.name}, ${customerId})`;
     }
   } catch (err) {
-    console.error("Error in inserting user", err);
+    console.error("Error creating or updating user for customerId:", customerId, err);
   }
 }
 
@@ -82,7 +77,8 @@ async function updateUserSubscription(
   email: string
 ) {
   try {
-    await sql`UPDATE users SET price_id = ${priceId}, status = 'active' where email = ${email}`;
-  } catch (err) { console.error("Error in updating user", err);
+    await sql`UPDATE users SET price_id = ${priceId}, status = 'active' WHERE email = ${email}`;
+  } catch (err) {
+    console.error("Error updating subscription for email:", email, err);
   }
 }
