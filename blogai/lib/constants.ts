@@ -8,7 +8,7 @@
             price:"10",
             items:["3 Blog Posts","3 Transcription" ],
             paymentLink: "https://buy.stripe.com/cN2g1haz42Ix568144",
-            priceId:"price_1RCspx2MwwfzXHrFXnJeen7A"
+            priceId:"price_1RCsYi2MwwfzXHrFumG2fZxY"
         },
         {   
             id:'pro',
@@ -16,8 +16,8 @@
             description: "All Blog Posts,let's go!",
             price:"19.99",
             items:["unlimited Blog Posts","unlimited Transcriptions" ],
-            paymentLink: "https://buy.stripe.com/28o16n7mSbf3aqs8wx",
-            priceId:"price_1RCspx2MwwfzXHrFLX9WKswJ"
+            paymentLink: "https://buy.stripe.com/test_4gweYUc89fOh0jCcMM",
+            priceId:"price_1RCsaS2MwwfzXHrFcUOaJlhh"
         },
         
             
