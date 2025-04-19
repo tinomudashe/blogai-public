@@ -7,7 +7,7 @@
             description: 'Get started with blogAI!',
             price:"10",
             items:["3 Blog Posts","3 Transcription" ],
-            paymentLink: "https://buy.stripe.com/cN2g1haz42Ix568144",
+            paymentLink: "https://buy.stripe.com/test_4gweYUc89fOh0jCcMM",
             priceId:"price_1RCsYi2MwwfzXHrFumG2fZxY"
         },
         {   
@@ -16,7 +16,7 @@
             description: "All Blog Posts,let's go!",
             price:"19.99",
             items:["unlimited Blog Posts","unlimited Transcriptions" ],
-            paymentLink: "https://buy.stripe.com/test_4gweYUc89fOh0jCcMM",
+            paymentLink: "https://buy.stripe.com/test_4gw5ok6NP8lP7M4eUV",
             priceId:"price_1RCsaS2MwwfzXHrFcUOaJlhh"
         },
         
