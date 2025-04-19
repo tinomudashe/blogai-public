@@ -75,7 +75,6 @@ async function updateUserSubscription(
 ) {
   try {
     await sql`UPDATE users SET price_id = ${priceId}, status = 'active' where email = ${email}`;
-  } catch (err) {
-    console.error("Error in updating user", err);
+  } catch (err) { console.error("Error in updating user", err);
   }
 }
