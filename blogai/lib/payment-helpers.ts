@@ -37,6 +37,7 @@ export async function handleCheckoutSessionCompleted({
     await updateUserSubscription(sql, priceId, customer.email as string);
     //insert the payment
     await insertPayment(sql, session, priceId, customer.email as string);
+    console.log("customer created");
   }
 }
 
