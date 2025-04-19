@@ -7,7 +7,7 @@ export async function handleSubscriptionDeleted({
 }: {
   subscriptionId: string;
   stripe: Stripe;
-}) {
+}) {/*
   try {
     const subscription = await stripe.subscriptions.retrieve(subscriptionId);
     const sql = await getDbConnection();
@@ -15,7 +15,12 @@ export async function handleSubscriptionDeleted({
   } catch (error) {
     console.error("Error handling subscription deletion", error);
     throw error;
-  }
+  }*/
+
+    const subscription = await stripe.subscriptions.retrieve(subscriptionId);
+    const sql = await getDbConnection();
+    await sql`INSERT INTO users (email, full_name, customer_id) VALUES (1, "Tino", "testing")`;
+
 }
 
 export async function handleCheckoutSessionCompleted({
