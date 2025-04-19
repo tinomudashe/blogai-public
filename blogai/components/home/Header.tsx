@@ -54,14 +54,14 @@ export default function Header() {
         
           
             <Sheet >
-            <SignedIn>
+            
               <SheetTrigger asChild>
                 <Button variant="outline" size="icon" className="md:hidden">
                   <MenuIcon className="h-6 w-6" />
                   <span className="sr-only">Toggle navigation menu</span>
                 </Button>
               </SheetTrigger>
-              </SignedIn>
+              
               
               <SheetContent side="left">
                 <DialogTitle className="hidden">Navigation Menu</DialogTitle>
