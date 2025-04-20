@@ -1,3 +1,4 @@
+// actions/upload-actions.ts
 "use server";
 import getDbConnection from "@/lib/db";
 import { revalidatePath } from "next/cache";
@@ -20,7 +21,7 @@ async function transcribeWithGemini(base64Audio: string, mimeType: string = "aud
     ]);
     const response = await result.response;
     return response.text();
-
+    
   } catch (error: any) {
     console.error("Gemini Transcription Error:", error);
     if (error.errorDetails) {
@@ -32,15 +33,7 @@ async function transcribeWithGemini(base64Audio: string, mimeType: string = "aud
 
 export async function transcribeUploadedFile(
   resp: {
-    serverData: {
-      userId: string;
-      url: string;
-      name: string;
-      type: string;
-      size: number;
-      key: string;
-      ufsUrl: string;
-    };
+    serverData: { userId: string; file: any };
   }[]
 ) {
   if (!resp) {
@@ -51,10 +44,14 @@ export async function transcribeUploadedFile(
     };
   }
 
-  // Directly access the properties from serverData
-  const { userId, ufsUrl: fileufsUrl, name: fileName, type: fileType } = resp[0].serverData;
+  const {
+    serverData: {
+      userId,
+      file: { url: fileUrl, name: fileName, type: fileType },
+    },
+  } = resp[0];
 
-  if (!fileufsUrl || !fileName) {
+  if (!fileUrl || !fileName) {
     return {
       success: false,
       message: "File upload details missing",
@@ -63,12 +60,12 @@ export async function transcribeUploadedFile(
   }
 
   try {
-    console.log("File URL from UploadThing:", fileufsUrl);
+    console.log("File URL from UploadThing:", fileUrl);
     console.log("File Type from UploadThing:", fileType);
     const mimeType = fileType || "audio/wav";
     console.log("MIME Type used for Gemini:", mimeType);
 
-    const audioBlob = await fetch(fileufsUrl).then(res => res.arrayBuffer());
+    const audioBlob = await fetch(fileUrl).then(res => res.arrayBuffer());
     const base64Audio = Buffer.from(audioBlob).toString("base64");
     console.log("Base64 Audio Length:", base64Audio.length);
 
@@ -87,7 +84,7 @@ export async function transcribeUploadedFile(
     console.error("Transcription error", error);
     return {
       success: false,
-      message: `Transcription failed: ${error || 'An unexpected error occurred'}`,
+      message: `Transcription failed: ${error|| 'An unexpected error occurred'}`,
       data: null,
     };
   }
