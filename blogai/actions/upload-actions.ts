@@ -140,7 +140,7 @@ ${transcriptions}`;
     const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
     const result = await model.generateContent(prompt);
     const response = await result.response;
-    return response.text()?.trim() ?? "";
+    
   } catch (error: any) {
     console.error("Gemini Blog Post Generation Error:", error);
     if (error.response?.status === 400) {
