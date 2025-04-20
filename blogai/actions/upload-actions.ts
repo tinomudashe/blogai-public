@@ -21,7 +21,7 @@ async function transcribeWithGemini(base64Audio: string, mimeType: string = "aud
     ]);
     const response = await result.response;
     return response.text();
-    
+
   } catch (error: any) {
     console.error("Gemini Transcription Error:", error);
     if (error.errorDetails) {
@@ -47,11 +47,11 @@ export async function transcribeUploadedFile(
   const {
     serverData: {
       userId,
-      file: { url: fileUrl, name: fileName, type: fileType },
+      file: { ufsUrl: fileufsUrl, name: fileName, type: fileType },
     },
   } = resp[0];
 
-  if (!fileUrl || !fileName) {
+  if (!fileufsUrl || !fileName) {
     return {
       success: false,
       message: "File upload details missing",
@@ -60,12 +60,12 @@ export async function transcribeUploadedFile(
   }
 
   try {
-    console.log("File URL from UploadThing:", fileUrl);
+    console.log("File URL from UploadThing:", fileufsUrl);
     console.log("File Type from UploadThing:", fileType);
     const mimeType = fileType || "audio/wav";
     console.log("MIME Type used for Gemini:", mimeType);
 
-    const audioBlob = await fetch(fileUrl).then(res => res.arrayBuffer());
+    const audioBlob = await fetch(fileufsUrl).then(res => res.arrayBuffer());
     const base64Audio = Buffer.from(audioBlob).toString("base64");
     console.log("Base64 Audio Length:", base64Audio.length);
 

@@ -26,7 +26,7 @@ export const ourFileRouter = {
         serverData: {
           userId: metadata.userId,
           file: {
-            url: file.ufsUrl,
+            ufsUrl: file.ufsUrl,
             name: file.name,
             type: file.type,
           },
