@@ -2,6 +2,7 @@ import { currentUser } from "@clerk/nextjs/server";
 import { createUploadthing, type FileRouter } from "uploadthing/next";
 import { UploadThingError } from "uploadthing/server";
 
+
 const f = createUploadthing();
 
 export const ourFileRouter = {
@@ -18,11 +19,19 @@ export const ourFileRouter = {
     .onUploadComplete(async ({ metadata, file }) => {
       // This code RUNS ON YOUR SERVER after upload
       console.log("Upload complete for userId:", metadata.userId);
+      console.log("file url", file.ufsUrl);
 
-      console.log("file url", file.url);
-
-      // !!! Whatever is returned here is sent to the clientside `onClientUploadComplete` callback
-      return { userId: metadata.userId, file };
+      // Return the data in the structure expected by the client
+      return {
+        serverData: {
+          userId: metadata.userId,
+          file: {
+            url: file.ufsUrl,
+            name: file.name,
+            type: file.type,
+          },
+        },
+      };
     }),
 } satisfies FileRouter;
 

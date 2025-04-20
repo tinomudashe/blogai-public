@@ -19,7 +19,7 @@ async function transcribeWithGemini(base64Audio: string, mimeType: string = "aud
         },
       },
     ]);
-    const response = result.response;
+    const response = await result.response;
     return response.text();
     
   } catch (error: any) {
@@ -175,7 +175,6 @@ export async function generateBlogPostAction({
     }
 
     const [title, ...contentParts] = blogPost?.split("\n\n") || [];
-    
 
     if (blogPost) {
       postId = await saveBlogPost(userId, title, blogPost);
@@ -190,12 +189,10 @@ export async function generateBlogPostAction({
   if (postId) {
     revalidatePath(`/posts/${postId}`);
     redirect(`/posts/${postId}`);
-
   } else {
     return {
       success: false,
       message: "Failed to save the blog post.",
-      
     };
   }
 }

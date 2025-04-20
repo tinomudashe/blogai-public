@@ -1,4 +1,5 @@
 "use client";
+
 import { z } from "zod";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
@@ -56,7 +57,6 @@ export default function UploadForm() {
           validatedFields.error.flatten().fieldErrors.file?.[0] ??
           "Invalid file",
       );
-      return; // Exit early if validation fails
     }
 
     if (file) {
@@ -65,46 +65,43 @@ export default function UploadForm() {
 
       if (!resp) {
         toast.dismiss();
-        toast.error("Something went wrong");
-        return; // Exit early if upload fails
+        toast(
+          "Something went wrong",
+        );
       }
-
       toast.dismiss();
-      toast.loading("🎙️ Transcription is in progress...");
+      toast.loading( "🎙️ Transcription is in progress...");
 
-      try {
-        const result = await transcribeUploadedFile(resp);
-        const { data = null, message = null } = result || {};
+      const result = await transcribeUploadedFile(resp);
+      const { data = null, message = null } = result || {};
 
-        if (!result || (!data && !message)) {
-          throw new Error("An unexpected error occurred");
-        }
-
-        if (data) {
-          toast.dismiss();
-
-          const toastId = toast.loading("Please wait while we generate your blog post.", {
-            duration: 10000,
-          });
-
-          setTimeout(() => {
-            toast.dismiss(toastId);
-            toast.success("🎉 Blog created successfully!");
-          }, 10000);
-
-          await generateBlogPostAction({
-            transcriptions: data.transcriptions,
-            userId: data.userId,
-          });
-        }
-      } catch (error) {
-        console.error("Error during transcription or blog generation:", error);
+      if (!result || (!data && !message)) {
         toast.dismiss();
         toast.error("An unexpected error occurred");
       }
+
+      if (data) {
+        toast.dismiss();
+        
+        const toastId = toast.loading("Please wait while we generate your blog post.", {
+          duration: 10000,
+        });
+        
+        setTimeout(() => {
+          toast.dismiss(toastId);
+          toast.success("🎉 Blog created successfully!");
+        }, 10000);
+
+        await generateBlogPostAction({
+          transcriptions: data.transcriptions,
+          userId: data.userId,
+        });
+
+        
+        
+      }
     }
   };
-
   return (
     <form className="flex flex-col gap-6" action={handleTranscribe}>
       <div className="flex justify-end items-center gap-1.5">
