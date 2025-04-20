@@ -1,7 +1,6 @@
 import { currentUser } from "@clerk/nextjs/server";
 import { createUploadthing, type FileRouter } from "uploadthing/next";
-import { UploadThingError } from "uploadthing/server";
-
+import { UploadThingError } from "uploadthing/server"
 
 const f = createUploadthing();
 
@@ -16,28 +15,19 @@ export const ourFileRouter = {
 
       return { userId: user.id };
     })
-    .onUploadComplete(async ({ metadata, file }) => {
+    .onUploadComplete(async ({ metadata, file}) => {
       // This code RUNS ON YOUR SERVER after upload
       console.log("Upload complete for userId:", metadata.userId);
 
-      if (!file || !file.ufsUrl) {
-        console.error("File or file.ufsUrl is undefined");
-        throw new UploadThingError("Invalid file data");
-      }
+      console.log("file url", file.url);
 
-      console.log("file url", file.ufsUrl);
-
-      // Return the data in the structure expected by the client
-      return {
-        serverData: {
-          userId: metadata.userId,
-          file: {
-            ufsUrl: file.ufsUrl,
-            name: file.name,
-            type: file.type,
-          },
-        },
-      };
+      // !!! Whatever is returned here is sent to the clientside `onClientUploadComplete` callback
+      return { userId: metadata.userId,
+        url: file.url,
+        name: file.name,
+        type: file.type,
+        size: file.size,
+        key: file.key,};
     }),
 } satisfies FileRouter;
 

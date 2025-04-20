@@ -1,4 +1,3 @@
-// actions/upload-actions.ts
 "use server";
 import getDbConnection from "@/lib/db";
 import { revalidatePath } from "next/cache";
@@ -33,7 +32,15 @@ async function transcribeWithGemini(base64Audio: string, mimeType: string = "aud
 
 export async function transcribeUploadedFile(
   resp: {
-    serverData: { userId: string; file: any };
+    serverData: {
+      userId: string;
+      url: string;
+      name: string;
+      type: string;
+      size: number;
+      key: string;
+      ufsUrl: string;
+    };
   }[]
 ) {
   if (!resp) {
@@ -44,12 +51,8 @@ export async function transcribeUploadedFile(
     };
   }
 
-  const {
-    serverData: {
-      userId,
-      file: { ufsUrl: fileufsUrl, name: fileName, type: fileType },
-    },
-  } = resp[0];
+  // Directly access the properties from serverData
+  const { userId, ufsUrl: fileufsUrl, name: fileName, type: fileType } = resp[0].serverData;
 
   if (!fileufsUrl || !fileName) {
     return {
@@ -84,7 +87,7 @@ export async function transcribeUploadedFile(
     console.error("Transcription error", error);
     return {
       success: false,
-      message: `Transcription failed: ${error|| 'An unexpected error occurred'}`,
+      message: `Transcription failed: ${error || 'An unexpected error occurred'}`,
       data: null,
     };
   }
