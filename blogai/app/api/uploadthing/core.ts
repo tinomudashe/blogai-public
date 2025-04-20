@@ -19,6 +19,12 @@ export const ourFileRouter = {
     .onUploadComplete(async ({ metadata, file }) => {
       // This code RUNS ON YOUR SERVER after upload
       console.log("Upload complete for userId:", metadata.userId);
+
+      if (!file || !file.ufsUrl) {
+        console.error("File or file.ufsUrl is undefined");
+        throw new UploadThingError("Invalid file data");
+      }
+
       console.log("file url", file.ufsUrl);
 
       // Return the data in the structure expected by the client
