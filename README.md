@@ -1,6 +1,6 @@
 # ✍️ Blogai - Turn Your Video and audio files into Captivating Blog Posts with AI
 
-Blogai is a cutting-edge **Next.js** web application designed to revolutionize content creation. It streamlines the process of converting your video and audio content into optimized blog posts, significantly enhancing your search engine visibility. Leverage the power of AI to effortlessly repurpose your content and reach a wider audience. This project is part of my portfolio.
+Blogai is a modern **Next.js** app I built to simplify content creation. It takes video and audio files and turns them into SEO-friendly blog posts—fast. With AI doing the heavy lifting, it’s easier to repurpose your content and grow your reach. I built this as part of my portfolio to show how tech can work smarter.
 
 [![blogai.blog](https://img.shields.io/badge/blogai.blog-blue?style=for-the-badge)](https://blogai.blog)
 [![Vercel Deployment](https://vercel.com/button)](https://vercel.com/)
